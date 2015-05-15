@@ -74,15 +74,18 @@ namespace AnimatorControllerEx {
                     DrawInspectorForMessageSourceType(
                         pos,
                         trigger,
+                        sourceType,
                         messageType,
                         param);
                     break;
             }
         }
 
+        // todo rename to Trigger 
         private void DrawInspectorForMessageSourceType(
             Rect pos,
             SerializedProperty trigger,
+            SerializedProperty sourceType,
             SerializedProperty messageType,
             SerializedProperty param) {
 
@@ -99,9 +102,10 @@ namespace AnimatorControllerEx {
             // Draw 'trigger' field.
             EditorGUIUtility.labelWidth = 50;
 
-            DrawTriggerField(pos, trigger, 2);
+            DrawTriggerField(pos, trigger, SourceTypes.Trigger, 2);
         }
 
+        // todo rename to Property 
         private void DrawInspectorForComponentSourceType(
             Rect pos,
             SerializedProperty param,
@@ -116,7 +120,7 @@ namespace AnimatorControllerEx {
 
             EditorGUIUtility.labelWidth = 50;
 
-            DrawTriggerField(pos, trigger, 1);
+            DrawTriggerField(pos, trigger, SourceTypes.Property, 1);
 
             EditorGUIUtility.labelWidth = 50;
 
@@ -203,11 +207,15 @@ namespace AnimatorControllerEx {
                     "the animator field."));
         }
 
-        // todo disable field if trigger source type selected
         private void DrawTriggerField(
             Rect pos,
             SerializedProperty trigger,
+            SourceTypes sourceType,
             int row) {
+
+            var disable = sourceType == SourceTypes.Trigger;
+
+            EditorGUI.BeginDisabledGroup(disable);
 
             EditorGUI.PropertyField(
                 new Rect(
@@ -219,6 +227,8 @@ namespace AnimatorControllerEx {
                 new GUIContent(
                     "Trigger",
                     "If the animator param. is a trigger."));
+
+            EditorGUI.EndDisabledGroup();
         }
 
         private void DrawParamField(
