@@ -38,19 +38,19 @@ namespace AnimatorControllerEx {
             SerializedProperty prop,
             GUIContent label) {
 
-            SerializedProperty sourceType =
+            var sourceType =
                 prop.FindPropertyRelative("_sourceType");
-            SerializedProperty messageType =
+            var messageType =
                 prop.FindPropertyRelative("_messageType");
-            SerializedProperty param =
+            var param =
                 prop.FindPropertyRelative("_param");
-            SerializedProperty sourceCo =
+            var sourceCo =
                 prop.FindPropertyRelative("_sourceCo");
-            SerializedProperty sourcePropIndex =
+            var sourcePropIndex =
                 prop.FindPropertyRelative("_sourcePropIndex");
-            SerializedProperty sourcePropertyName =
+            var sourcePropertyName =
                 prop.FindPropertyRelative("_sourcePropertyName");
-            SerializedProperty trigger =
+            var trigger =
                 prop.FindPropertyRelative("_trigger");
 
             DrawSourceTypeDropdown(pos, sourceType);
@@ -162,7 +162,7 @@ namespace AnimatorControllerEx {
                 // Initialize array.
                 var sourcePropNames = new string[_sourceProperties.Length];
                 // Fill array with property names.
-                for (int i = 0; i < _sourceProperties.Length; i++) {
+                for (var i = 0; i < _sourceProperties.Length; i++) {
                     sourcePropNames[i] = _sourceProperties[i].Name;
                 }
                 EditorGUIUtility.labelWidth = 80;
