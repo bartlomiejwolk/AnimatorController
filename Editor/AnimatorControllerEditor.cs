@@ -17,10 +17,10 @@ namespace AnimatorControllerEx {
 		}
 
 		public override void OnInspectorGUI() {
-			base.OnInspectorGUI();
 			serializedObject.Update();
 
 			EditorGUILayout.PropertyField(_animator);
+
 			ReorderableListGUI.Title("Animator Params");
 			ReorderableListGUI.ListField(_animatorParams);
 
