@@ -44,19 +44,19 @@ namespace AnimatorControllerEx {
             GUIContent label) {
 
             var sourceType =
-                prop.FindPropertyRelative("_sourceType");
+                prop.FindPropertyRelative("sourceType");
             var messageType =
-                prop.FindPropertyRelative("_messageType");
+                prop.FindPropertyRelative("messageType");
             var param =
-                prop.FindPropertyRelative("_param");
+                prop.FindPropertyRelative("paramName");
             var sourceCo =
-                prop.FindPropertyRelative("_sourceCo");
+                prop.FindPropertyRelative("sourceCo");
             var sourcePropIndex =
-                prop.FindPropertyRelative("_sourcePropIndex");
+                prop.FindPropertyRelative("sourcePropIndex");
             var sourcePropertyName =
-                prop.FindPropertyRelative("_sourcePropertyName");
+                prop.FindPropertyRelative("sourcePropertyName");
             var trigger =
-                prop.FindPropertyRelative("_trigger");
+                prop.FindPropertyRelative("trigger");
 
             DrawSourceTypeDropdown(pos, sourceType);
 

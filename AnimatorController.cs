@@ -60,10 +60,10 @@ namespace AnimatorControllerEx {
         void OnTriggerExit() {
             for (int i = 0; i < _animatorParams.Count; i++) {
                 // Handle OnTriggerExit message type.
-                if (_animatorParams[i]._messageType ==
+                if (_animatorParams[i].messageType ==
                         MessageTypes.OnTriggerExit) {
                     // Send trigger to Animator param.
-                    _animator.SetTrigger(_animatorParams[i]._paramHash);
+                    _animator.SetTrigger(_animatorParams[i].paramHash);
                 }
             }
         }
@@ -71,10 +71,10 @@ namespace AnimatorControllerEx {
         void OnTriggerEnter() {
             for (int i = 0; i < _animatorParams.Count; i++) {
                 // Handle OnTriggerEnter message type.
-                if (_animatorParams[i]._messageType ==
+                if (_animatorParams[i].messageType ==
                         MessageTypes.OnTriggerEnter) {
                     // Send trigger to Animator param.
-                    _animator.SetTrigger(_animatorParams[i]._paramHash);
+                    _animator.SetTrigger(_animatorParams[i].paramHash);
                 }
             }
         }
@@ -97,18 +97,18 @@ namespace AnimatorControllerEx {
             // Get data for all AnimatorParam class objects.
             for (int i = 0; i < _animatorParams.Count; i++) {
                 // For different source types there're different things to do.
-                switch (_animatorParams[i]._sourceType) {
+                switch (_animatorParams[i].sourceType) {
                     case SourceTypes.Property:
                         // Get metadata of the selected source property.
-                        _sourcePropInfo[i] = _animatorParams[i]._sourceCo.GetType()
-                            .GetProperty(_animatorParams[i]._sourcePropertyName);
+                        _sourcePropInfo[i] = _animatorParams[i].sourceCo.GetType()
+                            .GetProperty(_animatorParams[i].sourcePropertyName);
                         break;
                     case SourceTypes.Trigger:
                         break;
                 }
                 // Get animator parameter hash.
-                _animatorParams[i]._paramHash =
-                    Animator.StringToHash(_animatorParams[i]._param);
+                _animatorParams[i].paramHash =
+                    Animator.StringToHash(_animatorParams[i].paramName);
             }
         }
 
@@ -125,14 +125,14 @@ namespace AnimatorControllerEx {
             // Update animator params for each AnimatorParams class object.
             for (int i = 0; i < _animatorParams.Count; i++) {
                 // Do that only when a components is used as a source.
-                if (_animatorParams[i]._sourceType == SourceTypes.Property) {
+                if (_animatorParams[i].sourceType == SourceTypes.Property) {
                     sourceType[i] = _sourcePropInfo[i].PropertyType;
                     sourceValue[i] = _sourcePropInfo[i].GetValue(
-                            _animatorParams[i]._sourceCo,
+                            _animatorParams[i].sourceCo,
                             null);
                     UpdateAnimatorParams(
-                            _animatorParams[i]._paramHash,
-                            _animatorParams[i]._trigger,
+                            _animatorParams[i].paramHash,
+                            _animatorParams[i].trigger,
                             sourceType[i],
                             sourceValue[i],
                             // Pass by value so that it can be updated.

@@ -11,38 +11,37 @@ namespace AnimatorControllerEx {
 
         /// Source type.
         [SerializeField]
-        public SourceTypes _sourceType;
+        public SourceTypes sourceType;
 
         // Message type.
         [SerializeField]
-        public MessageTypes _messageType;
+        public MessageTypes messageType;
             
         /// Animator parameter to update.
-        // TODO Rename to '_paramName'.
         [SerializeField]
-        public string _param;
+        public string paramName;
 
         /// If animator param. is a trigger.
         [SerializeField]
-        public bool _trigger;
+        public bool trigger;
 
         /// Animator param hash.
-        public int _paramHash;
+        public int paramHash;
 
         /// Source component.
         [SerializeField]
-        public Component _sourceCo;
+        public Component sourceCo;
 
         /// Index of the selected source property in property dropdown.
         ///
         /// Property array contains names of all properties
         /// found in the source game object.
         [SerializeField]
-        private int _sourcePropIndex = 0;
+        private int sourcePropIndex = 0;
 
         /// Name of the selected source component property.
         [SerializeField]
-        public string _sourcePropertyName;
+        public string sourcePropertyName;
     }
 
 }
