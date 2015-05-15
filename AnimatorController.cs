@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace AnimatorControllerEx {
 
-	/// Update animator parameters with component property values.
+    /// Update animator parameters with component property values.
 	///
 	/// Make sure that passed animator property and selected component
 	/// property type are of the same type.
@@ -14,10 +14,6 @@ namespace AnimatorControllerEx {
 	/// When 'Trigger' checkbox is selected, make sure that the animator
 	/// parameter is of trigger type.
 	public class AnimatorController : MonoBehaviour {
-
-		public enum SourceTypes { Property, Trigger }
-
-		public enum MessageTypes { OnTriggerEnter, OnTriggerExit }
 
 	    /// Animator component.
 		[SerializeField]

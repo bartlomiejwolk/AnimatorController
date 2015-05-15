@@ -11,11 +11,11 @@ namespace AnimatorControllerEx {
 
         /// Source type.
         [SerializeField]
-        public AnimatorController.SourceTypes _sourceType;
+        public SourceTypes _sourceType;
 
         // Message type.
         [SerializeField]
-        public AnimatorController.MessageTypes _messageType;
+        public MessageTypes _messageType;
             
         /// Animator parameter to update.
         // TODO Rename to '_paramName'.
