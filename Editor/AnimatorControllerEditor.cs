@@ -61,7 +61,7 @@ namespace AnimatorControllerEx {
 
         #region METHODS
 
-        [MenuItem("Component/MyNamespace/AnimatorController")]
+        [MenuItem("Component/AnimatorController")]
         private static void AddAnimatorControllerComponent() {
             if (Selection.activeGameObject != null) {
                 Selection.activeGameObject.AddComponent(typeof(AnimatorController));
