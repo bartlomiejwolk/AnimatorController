@@ -153,8 +153,7 @@ namespace AnimatorControllerEx {
 
             EditorGUIUtility.labelWidth = 80;
 
-            // Display dropdown component property list.
-            DrawSourcePropertyField(pos, sourcePropIndex, sourcePropNames);
+            DrawSourcePropertyField(pos, sourcePropIndex);
 
             // Save selected property name.
             sourcePropertyName.stringValue =
@@ -184,8 +183,7 @@ namespace AnimatorControllerEx {
 
         private void DrawSourcePropertyField(
             Rect pos,
-            SerializedProperty sourcePropIndex,
-            string[] sourcePropNames) {
+            SerializedProperty sourcePropIndex) {
 
             sourcePropIndex.intValue = EditorGUI.Popup(
                 new Rect(
