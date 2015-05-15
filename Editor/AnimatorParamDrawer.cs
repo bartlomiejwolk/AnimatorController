@@ -145,26 +145,15 @@ namespace AnimatorControllerEx {
 
             EditorGUIUtility.labelWidth = 0;
 
-            HandleFindComponentProperties(
-                pos,
-                sourceCo,
-                sourcePropIndex,
-                sourcePropertyName);
+            HandleFindComponentProperties(sourceCo);
 
             EditorGUIUtility.labelWidth = 80;
 
-            DrawSourcePropertyField(pos, sourcePropIndex);
-
-            // Save selected property name.
-            sourcePropertyName.stringValue =
-                sourcePropNames[sourcePropIndex.intValue];
+            DrawSourcePropertyField(pos, sourcePropIndex, sourcePropertyName);
         }
 
         private void HandleFindComponentProperties(
-            Rect pos,
-            SerializedProperty sourceCo,
-            SerializedProperty sourcePropIndex,
-            SerializedProperty sourcePropertyName) {
+            SerializedProperty sourceCo) {
 
             // Find component properties in a selected component and display
             // as dropdown.
@@ -183,7 +172,8 @@ namespace AnimatorControllerEx {
 
         private void DrawSourcePropertyField(
             Rect pos,
-            SerializedProperty sourcePropIndex) {
+            SerializedProperty sourcePropIndex,
+            SerializedProperty sourcePropertyName) {
 
             sourcePropIndex.intValue = EditorGUI.Popup(
                 new Rect(
@@ -195,6 +185,10 @@ namespace AnimatorControllerEx {
                 "Source Prop.",
                 sourcePropIndex.intValue,
                 sourcePropNames);
+
+            // Save selected property name.
+            sourcePropertyName.stringValue =
+                sourcePropNames[sourcePropIndex.intValue];
         }
 
         private void DrawMessageTypeDropdown(
