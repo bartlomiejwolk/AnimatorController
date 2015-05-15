@@ -98,18 +98,8 @@ namespace AnimatorControllerEx {
 
             // Draw 'trigger' field.
             EditorGUIUtility.labelWidth = 50;
-            // todo replace with DrawTriggerField. Add no param.
-            EditorGUI.PropertyField(
-                new Rect(
-                    pos.x + pos.width * 0.5f + 3,
-                    pos.y + 40,
-                    pos.width * 0.5f,
-                    16),
-                trigger,
-                new GUIContent(
-                    "Trigger",
-                    "If the animator param. is a trigger. For message " +
-                    "source type it's read-only."));
+
+            DrawTriggerField(pos, trigger, 2);
         }
 
         private void DrawInspectorForComponentSourceType(
@@ -126,7 +116,7 @@ namespace AnimatorControllerEx {
 
             EditorGUIUtility.labelWidth = 50;
 
-            DrawTriggerField(pos, trigger);
+            DrawTriggerField(pos, trigger, 1);
 
             EditorGUIUtility.labelWidth = 50;
 
@@ -214,17 +204,22 @@ namespace AnimatorControllerEx {
                     "selected animator parameter."));
         }
 
-        private void DrawTriggerField(Rect pos, SerializedProperty trigger) {
+        private void DrawTriggerField(
+            Rect pos,
+            SerializedProperty trigger,
+            int row) {
+
             EditorGUI.PropertyField(
                 new Rect(
                     pos.x + pos.width * 0.5f + 3,
-                    pos.y + 1 * (PropHeight + PropMargin),
+                    pos.y + row * (PropHeight + PropMargin),
                     pos.width * 0.5f,
                     16),
                 trigger,
                 new GUIContent(
                     "Trigger",
-                    "If the animator param. is a trigger."));
+                    "If the animator param. is a trigger. For message " +
+                    "source type it's read-only."));
         }
 
         private void DrawParamField(
