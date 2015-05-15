@@ -62,81 +62,112 @@ namespace AnimatorControllerEx {
             if (sourceType.enumValueIndex
                 == (int) AnimatorController.SourceTypes.Component) {
 
-                EditorGUIUtility.labelWidth = 50;
-
-                DrawParamField(pos, param);
-
-                EditorGUIUtility.labelWidth = 50;
-
-                DrawTriggerField(pos, trigger);
-
-                EditorGUIUtility.labelWidth = 50;
-
-                DrawSourceComponentField(pos, sourceCo);
-
-                EditorGUIUtility.labelWidth = 0;
-
-                // Find component properties in a selected component and display
-                // as dropdown.
-                if (sourceCo.objectReferenceValue) {
-                    // Get all properties from source component.
-                    var _sourceProperties = sourceCo.objectReferenceValue.GetType().GetProperties();
-                    // Initialize array.
-                    var sourcePropNames = new string[_sourceProperties.Length];
-                    // Fill array with property names.
-                    for (int i = 0; i < _sourceProperties.Length; i++) {
-                        sourcePropNames[i] = _sourceProperties[i].Name;
-                    }
-                    EditorGUIUtility.labelWidth = 80;
-                    // Display dropdown component property list.
-                    DrawSourcePropertyField(pos, sourcePropIndex, sourcePropNames);
-
-                    // Save selected property name.
-                    sourcePropertyName.stringValue =
-                        sourcePropNames[sourcePropIndex.intValue];
-                }
+                DrawInspectorForComponentSourceType(
+                    pos,
+                    param,
+                    trigger,
+                    sourceCo,
+                    sourcePropIndex,
+                    sourcePropertyName);
             }
 
             // Draw properties for 'Message' source type.
             if (sourceType.enumValueIndex
                 == (int) AnimatorController.SourceTypes.Message) {
 
-                // Message type source is always a trigger.
-                trigger.boolValue = true;
-
-                DrawMessageTypeDropdown(pos, messageType);
-
-                // Draw 'param' field.
-                EditorGUIUtility.labelWidth = 50;
-
-                // todo replace with DrawParamField. Add no param.
-                EditorGUI.PropertyField(
-                    new Rect(
-                        pos.x,
-                        pos.y + 40,
-                        pos.width * 0.5f,
-                        16),
-                    param,
-                    new GUIContent(
-                        "Param",
-                        "Animator parameter name to update."));
-
-                // Draw 'trigger' field.
-                EditorGUIUtility.labelWidth = 50;
-                // todo replace with DrawTriggerField. Add no param.
-                EditorGUI.PropertyField(
-                    new Rect(
-                        pos.x + pos.width * 0.5f + 3,
-                        pos.y + 40,
-                        pos.width * 0.5f,
-                        16),
+                DrawInspectorForMessageSourceType(
+                    pos,
                     trigger,
-                    new GUIContent(
-                        "Trigger",
-                        "If the animator param. is a trigger. For message " +
-                        "source type it's read-only."));
+                    messageType,
+                    param);
             }
 
+        }
+
+        private static void DrawInspectorForMessageSourceType(
+            Rect pos,
+            SerializedProperty trigger,
+            SerializedProperty messageType,
+            SerializedProperty param) {
+
+// Message type source is always a trigger.
+            trigger.boolValue = true;
+
+            DrawMessageTypeDropdown(pos, messageType);
+
+            // Draw 'param' field.
+            EditorGUIUtility.labelWidth = 50;
+
+            // todo replace with DrawParamField. Add no param.
+            EditorGUI.PropertyField(
+                new Rect(
+                    pos.x,
+                    pos.y + 40,
+                    pos.width * 0.5f,
+                    16),
+                param,
+                new GUIContent(
+                    "Param",
+                    "Animator parameter name to update."));
+
+            // Draw 'trigger' field.
+            EditorGUIUtility.labelWidth = 50;
+            // todo replace with DrawTriggerField. Add no param.
+            EditorGUI.PropertyField(
+                new Rect(
+                    pos.x + pos.width * 0.5f + 3,
+                    pos.y + 40,
+                    pos.width * 0.5f,
+                    16),
+                trigger,
+                new GUIContent(
+                    "Trigger",
+                    "If the animator param. is a trigger. For message " +
+                    "source type it's read-only."));
+        }
+
+        private static void DrawInspectorForComponentSourceType(
+            Rect pos,
+            SerializedProperty param,
+            SerializedProperty trigger,
+            SerializedProperty sourceCo,
+            SerializedProperty sourcePropIndex,
+            SerializedProperty sourcePropertyName) {
+
+            EditorGUIUtility.labelWidth = 50;
+
+            DrawParamField(pos, param);
+
+            EditorGUIUtility.labelWidth = 50;
+
+            DrawTriggerField(pos, trigger);
+
+            EditorGUIUtility.labelWidth = 50;
+
+            DrawSourceComponentField(pos, sourceCo);
+
+            EditorGUIUtility.labelWidth = 0;
+
+            // Find component properties in a selected component and display
+            // as dropdown.
+            if (sourceCo.objectReferenceValue) {
+                // Get all properties from source component.
+                var _sourceProperties =
+                    sourceCo.objectReferenceValue.GetType().GetProperties();
+                // Initialize array.
+                var sourcePropNames = new string[_sourceProperties.Length];
+                // Fill array with property names.
+                for (int i = 0; i < _sourceProperties.Length; i++) {
+                    sourcePropNames[i] = _sourceProperties[i].Name;
+                }
+                EditorGUIUtility.labelWidth = 80;
+                // Display dropdown component property list.
+                DrawSourcePropertyField(pos, sourcePropIndex, sourcePropNames);
+
+                // Save selected property name.
+                sourcePropertyName.stringValue =
+                    sourcePropNames[sourcePropIndex.intValue];
+            }
         }
 
         private static void DrawSourcePropertyField(
