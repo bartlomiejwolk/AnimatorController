@@ -21,7 +21,7 @@ namespace AnimatorControllerEx {
         private const int RowSpace = 8;
 
         // Number of rows.
-        private const int Rows = 1;
+        private const int Rows = 3;
 
         #endregion
  
@@ -61,9 +61,9 @@ namespace AnimatorControllerEx {
             EditorGUI.PropertyField(
                 new Rect(
                     pos.x,
-                    pos.y,
+                    pos.y + 0 * (PropHeight + PropMargin),
                     pos.width,
-                    16),
+                    PropHeight),
                 sourceType,
                 new GUIContent(
                     "Source Type",
@@ -77,7 +77,7 @@ namespace AnimatorControllerEx {
                 EditorGUI.PropertyField(
                     new Rect(
                         pos.x,
-                        pos.y + 20,
+                        pos.y + 1 * (PropHeight + PropMargin),
                         pos.width * 0.5f,
                         16),
                     param,
@@ -90,7 +90,7 @@ namespace AnimatorControllerEx {
                 EditorGUI.PropertyField(
                     new Rect(
                         pos.x + pos.width * 0.5f + 3,
-                        pos.y + 20,
+                        pos.y + 1 * (PropHeight + PropMargin),
                         pos.width * 0.5f,
                         16),
                     trigger,
@@ -103,7 +103,7 @@ namespace AnimatorControllerEx {
                 EditorGUI.PropertyField(
                     new Rect(
                         pos.x,
-                        pos.y + 40,
+                        pos.y + 2 * (PropHeight + PropMargin),
                         pos.width,
                         16),
                     sourceCo,
