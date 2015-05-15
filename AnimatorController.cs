@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace OneDayGame {
+namespace AnimatorControllerEx {
 
 	/// Update animator parameters with component property values.
 	///
@@ -13,7 +13,7 @@ namespace OneDayGame {
 	///
 	/// When 'Trigger' checkbox is selected, make sure that the animator
 	/// parameter is of trigger type.
-	public class AnimatorController : GameComponent {
+	public class AnimatorController : MonoBehaviour {
 
 		public enum SourceTypes { Component, Message }
 
@@ -75,11 +75,9 @@ namespace OneDayGame {
 		/// Necessery for the 'Trigger' option.
 		private object[] _prevPropValues;
 
-		public override void Awake() {
-			base.Awake();
-
+		private void Awake() {
 			if (!_animator) {
-				MissingReference("_animator");
+				Utilities.MissingReference(this, "_animator");
 			}
 
 			// Initialize arrays.
@@ -109,13 +107,7 @@ namespace OneDayGame {
 			}
 		}
 
-		public override void Start () {
-			base.Start();
-		}
-
-		public override void Update () {
-			base.Update();
-			
+		private void Update () {
 			// Type of the source property value.
 			Type[] sourceType;
 			// Value of the source property.
@@ -142,14 +134,6 @@ namespace OneDayGame {
 							ref _prevPropValues[i]);
 				}
 			}
-		}
-
-		public override void FixedUpdate() {
-			base.FixedUpdate();
-		}
-
-		public override void LateUpdate() {
-			base.LateUpdate();
 		}
 
 		/// Update animator parameters for 'Component' source type.

@@ -3,24 +3,21 @@ using System.Collections;
 using UnityEditor;
 using Rotorz.ReorderableList;
 
-namespace OneDayGame {
+namespace AnimatorControllerEx {
 
 	[CustomEditor(typeof(AnimatorController))]
-	public class AnimatorControllerEditor: GameComponentEditor {
+	public class AnimatorControllerEditor: Editor {
 
 		private SerializedProperty _animator;
 		private SerializedProperty _animatorParams;
 
-		public override void OnEnable() {
-			base.OnEnable();
-
+		private void OnEnable() {
 			_animator = serializedObject.FindProperty("_animator");
 			_animatorParams = serializedObject.FindProperty("_animatorParams");
 		}
 
 		public override void OnInspectorGUI() {
 			base.OnInspectorGUI();
-			//AnimatorController script = (AnimatorController)target;
 			serializedObject.Update();
 
 			EditorGUILayout.PropertyField(_animator);
@@ -28,10 +25,6 @@ namespace OneDayGame {
 			ReorderableListGUI.ListField(_animatorParams);
 
 			serializedObject.ApplyModifiedProperties();
-			// Save changes
-			/*if (GUI.changed) {
-				EditorUtility.SetDirty(script);
-			}*/
 		}
 	}
 }
