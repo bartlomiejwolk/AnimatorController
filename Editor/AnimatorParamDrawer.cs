@@ -61,7 +61,7 @@ namespace AnimatorControllerEx {
 
             // Handle selected source type.
             switch (sourceType.enumValueIndex) {
-                case (int) AnimatorController.SourceTypes.Component:
+                case (int) AnimatorController.SourceTypes.Property:
                     // todo crate fields instead of passing multiple params.
                     DrawInspectorForComponentSourceType(
                         pos,
@@ -71,7 +71,7 @@ namespace AnimatorControllerEx {
                         sourcePropIndex,
                         sourcePropertyName);
                     break;
-                case (int) AnimatorController.SourceTypes.Message:
+                case (int) AnimatorController.SourceTypes.Trigger:
                     DrawInspectorForMessageSourceType(
                         pos,
                         trigger,
@@ -226,7 +226,6 @@ namespace AnimatorControllerEx {
         }
 
         private void DrawTriggerField(Rect pos, SerializedProperty trigger) {
-
             EditorGUI.PropertyField(
                 new Rect(
                     pos.x + pos.width * 0.5f + 3,
@@ -240,7 +239,6 @@ namespace AnimatorControllerEx {
         }
 
         private void DrawParamField(Rect pos, SerializedProperty param) {
-
             EditorGUI.PropertyField(
                 new Rect(
                     pos.x,

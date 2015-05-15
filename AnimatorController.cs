@@ -15,7 +15,7 @@ namespace AnimatorControllerEx {
 	/// parameter is of trigger type.
 	public class AnimatorController : MonoBehaviour {
 
-		public enum SourceTypes { Component, Message }
+		public enum SourceTypes { Property, Trigger }
 
 		public enum MessageTypes { OnTriggerEnter, OnTriggerExit }
 
@@ -51,12 +51,12 @@ namespace AnimatorControllerEx {
 			for (int i = 0; i < _animatorParams.Count; i++) {
 				// For different source types there're different things to do.
 				switch (_animatorParams[i]._sourceType) {
-					case SourceTypes.Component:
+					case SourceTypes.Property:
 						// Get metadata of the selected source property.
 						_sourcePropInfo[i] = _animatorParams[i]._sourceCo.GetType()
 							.GetProperty(_animatorParams[i]._sourcePropertyName);
 						break;
-					case SourceTypes.Message:
+					case SourceTypes.Trigger:
 						break;
 				}
 				// Get animator parameter hash.
@@ -78,7 +78,7 @@ namespace AnimatorControllerEx {
 			// Update animator params for each AnimatorParams class object.
 			for (int i = 0; i < _animatorParams.Count; i++) {
 				// Do that only when a components is used as a source.
-				if (_animatorParams[i]._sourceType == SourceTypes.Component) {
+				if (_animatorParams[i]._sourceType == SourceTypes.Property) {
 					sourceType[i] = _sourcePropInfo[i].PropertyType;
 					sourceValue[i] = _sourcePropInfo[i].GetValue(
 							_animatorParams[i]._sourceCo,
