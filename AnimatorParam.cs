@@ -7,7 +7,7 @@ namespace AnimatorControllerEx {
     /// See 'AnimatorParamDrawer'.
     // todo make fields private. Create properties.
     [System.Serializable]
-    public class AnimatorParam {
+    public sealed class AnimatorParam {
 
         /// Source type.
         [SerializeField]

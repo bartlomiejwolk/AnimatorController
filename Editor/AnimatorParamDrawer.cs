@@ -4,7 +4,7 @@ using UnityEngine;
 namespace AnimatorControllerEx {
 
     [CustomPropertyDrawer(typeof (AnimatorParam))]
-    public class AnimatorParamDrawer : GameComponentPropertyDrawer {
+    public sealed class AnimatorParamDrawer : GameComponentPropertyDrawer {
 
         #region CONSTANTS
 

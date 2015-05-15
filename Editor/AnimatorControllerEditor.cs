@@ -6,7 +6,7 @@ using Rotorz.ReorderableList;
 namespace AnimatorControllerEx {
 
 	[CustomEditor(typeof(AnimatorController))]
-	public class AnimatorControllerEditor: Editor {
+	public sealed class AnimatorControllerEditor: Editor {
 
 		private SerializedProperty _animator;
 		private SerializedProperty _animatorParams;
