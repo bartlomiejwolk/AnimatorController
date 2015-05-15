@@ -57,83 +57,40 @@ namespace AnimatorControllerEx {
             // Component properties.
             PropertyInfo[] _sourceProperties;
 
-            // Draw 'sourceType' dropdown.
-            EditorGUI.PropertyField(
-                new Rect(
-                    pos.x,
-                    pos.y + 0 * (PropHeight + PropMargin),
-                    pos.width,
-                    PropHeight),
-                sourceType,
-                new GUIContent(
-                    "Source Type",
-                    "Source based on which the Animator parameter will be updated"));
+            DrawSourceTypeDropdown(pos, sourceType);
 
             // Draw properties for 'Component' source type.
             if (sourceType.enumValueIndex
                 == (int) AnimatorController.SourceTypes.Component) {
-                // Draw 'param' field.
-                EditorGUIUtility.labelWidth = 50;
-                EditorGUI.PropertyField(
-                    new Rect(
-                        pos.x,
-                        pos.y + 1 * (PropHeight + PropMargin),
-                        pos.width * 0.5f,
-                        16),
-                    param,
-                    new GUIContent(
-                        "Param",
-                        "Animator parameter name to update."));
 
-                // Draw 'trigger' field.
                 EditorGUIUtility.labelWidth = 50;
-                EditorGUI.PropertyField(
-                    new Rect(
-                        pos.x + pos.width * 0.5f + 3,
-                        pos.y + 1 * (PropHeight + PropMargin),
-                        pos.width * 0.5f,
-                        16),
-                    trigger,
-                    new GUIContent(
-                        "Trigger",
-                        "If the animator param. is a trigger."));
 
-                // Draw 'sourceCo' field.
+                DrawParamField(pos, param);
+
                 EditorGUIUtility.labelWidth = 50;
-                EditorGUI.PropertyField(
-                    new Rect(
-                        pos.x,
-                        pos.y + 2 * (PropHeight + PropMargin),
-                        pos.width,
-                        16),
-                    sourceCo,
-                    new GUIContent(
-                        "Source",
-                        "Component which property is used to update " +
-                        "selected animator parameter."));
+
+                DrawTriggerField(pos, trigger);
+
+                EditorGUIUtility.labelWidth = 50;
+
+                DrawSourceComponentField(pos, sourceCo);
+
                 EditorGUIUtility.labelWidth = 0;
             }
 
             // Draw properties for 'Message' source type.
             if (sourceType.enumValueIndex
                 == (int) AnimatorController.SourceTypes.Message) {
+
                 // Message type source is always a trigger.
                 trigger.boolValue = true;
 
-                EditorGUI.PropertyField(
-                    new Rect(
-                        pos.x,
-                        pos.y + 20,
-                        pos.width,
-                        16),
-                    messageType,
-                    new GUIContent(
-                        "Message Type",
-                        "Type of the message"
-                        ));
+                DrawMessageTypeDropdown(pos, messageType);
 
                 // Draw 'param' field.
                 EditorGUIUtility.labelWidth = 50;
+
+                // todo replace with DrawParamField. Add no param.
                 EditorGUI.PropertyField(
                     new Rect(
                         pos.x,
@@ -147,6 +104,7 @@ namespace AnimatorControllerEx {
 
                 // Draw 'trigger' field.
                 EditorGUIUtility.labelWidth = 50;
+                // todo replace with DrawTriggerField. Add no param.
                 EditorGUI.PropertyField(
                     new Rect(
                         pos.x + pos.width * 0.5f + 3,
@@ -196,6 +154,84 @@ namespace AnimatorControllerEx {
                 sourcePropertyName.stringValue =
                     sourcePropNames[sourcePropIndex.intValue];
             }
+        }
+
+        private static void DrawMessageTypeDropdown(
+            Rect pos,
+            SerializedProperty messageType) {
+
+            EditorGUI.PropertyField(
+                new Rect(
+                    pos.x,
+                    pos.y + 20,
+                    pos.width,
+                    16),
+                messageType,
+                new GUIContent(
+                    "Message Type",
+                    "Type of the message"
+                    ));
+        }
+
+        private static void DrawSourceComponentField(
+            Rect pos,
+            SerializedProperty sourceCo) {
+
+            EditorGUI.PropertyField(
+                new Rect(
+                    pos.x,
+                    pos.y + 2 * (PropHeight + PropMargin),
+                    pos.width,
+                    16),
+                sourceCo,
+                new GUIContent(
+                    "Source",
+                    "Component which property is used to update " +
+                    "selected animator parameter."));
+        }
+
+        private static void DrawTriggerField(Rect pos, SerializedProperty trigger) {
+
+            EditorGUI.PropertyField(
+                new Rect(
+                    pos.x + pos.width * 0.5f + 3,
+                    pos.y + 1 * (PropHeight + PropMargin),
+                    pos.width * 0.5f,
+                    16),
+                trigger,
+                new GUIContent(
+                    "Trigger",
+                    "If the animator param. is a trigger."));
+        }
+
+        private static void DrawParamField(Rect pos, SerializedProperty param) {
+
+            EditorGUI.PropertyField(
+                new Rect(
+                    pos.x,
+                    pos.y + 1 * (PropHeight + PropMargin),
+                    pos.width * 0.5f,
+                    16),
+                param,
+                new GUIContent(
+                    "Param",
+                    "Animator parameter name to update."));
+        }
+
+        private static void DrawSourceTypeDropdown(
+            Rect pos,
+            SerializedProperty sourceType) {
+
+            EditorGUI.PropertyField(
+                new Rect(
+                    pos.x,
+                    pos.y + 0 * (PropHeight + PropMargin),
+                    pos.width,
+                    PropHeight),
+                sourceType,
+                new GUIContent(
+                    "Source Type",
+                    "Source based on which the Animator parameter will be updated"));
         }
 
     }
