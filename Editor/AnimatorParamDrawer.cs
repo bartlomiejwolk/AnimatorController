@@ -62,7 +62,7 @@ namespace AnimatorControllerEx {
             switch (sourceType.enumValueIndex) {
                 case (int) SourceTypes.Property:
                     // todo crate fields instead of passing multiple params.
-                    DrawInspectorForComponentSourceType(
+                    DrawInspectorForPropertySourceType(
                         pos,
                         param,
                         trigger,
@@ -71,7 +71,7 @@ namespace AnimatorControllerEx {
                         sourcePropertyName);
                     break;
                 case (int) SourceTypes.Trigger:
-                    DrawInspectorForMessageSourceType(
+                    DrawInspectorForTriggerSourceType(
                         pos,
                         trigger,
                         sourceType,
@@ -81,8 +81,7 @@ namespace AnimatorControllerEx {
             }
         }
 
-        // todo rename to Trigger 
-        private void DrawInspectorForMessageSourceType(
+        private void DrawInspectorForTriggerSourceType(
             Rect pos,
             SerializedProperty trigger,
             SerializedProperty sourceType,
@@ -105,8 +104,7 @@ namespace AnimatorControllerEx {
             DrawTriggerField(pos, trigger, SourceTypes.Trigger, 2);
         }
 
-        // todo rename to Property 
-        private void DrawInspectorForComponentSourceType(
+        private void DrawInspectorForPropertySourceType(
             Rect pos,
             SerializedProperty param,
             SerializedProperty trigger,
