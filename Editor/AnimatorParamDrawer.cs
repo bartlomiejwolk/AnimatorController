@@ -54,11 +54,9 @@ namespace AnimatorControllerEx {
             SerializedProperty trigger =
                 prop.FindPropertyRelative("_trigger");
 
-            // Component properties.
-
             DrawSourceTypeDropdown(pos, sourceType);
 
-            // Draw properties for 'Component' source type.
+            // Draw fields for 'Component' source type.
             if (sourceType.enumValueIndex
                 == (int) AnimatorController.SourceTypes.Component) {
 
@@ -71,7 +69,7 @@ namespace AnimatorControllerEx {
                     sourcePropertyName);
             }
 
-            // Draw properties for 'Message' source type.
+            // Draw fields for 'Message' source type.
             if (sourceType.enumValueIndex
                 == (int) AnimatorController.SourceTypes.Message) {
 
@@ -90,7 +88,7 @@ namespace AnimatorControllerEx {
             SerializedProperty messageType,
             SerializedProperty param) {
 
-// Message type source is always a trigger.
+            // Message type source is always a trigger.
             trigger.boolValue = true;
 
             DrawMessageTypeDropdown(pos, messageType);
@@ -147,6 +145,19 @@ namespace AnimatorControllerEx {
             DrawSourceComponentField(pos, sourceCo);
 
             EditorGUIUtility.labelWidth = 0;
+
+            HandleFindComponentProperties(
+                pos,
+                sourceCo,
+                sourcePropIndex,
+                sourcePropertyName);
+        }
+
+        private static void HandleFindComponentProperties(
+            Rect pos,
+            SerializedProperty sourceCo,
+            SerializedProperty sourcePropIndex,
+            SerializedProperty sourcePropertyName) {
 
             // Find component properties in a selected component and display
             // as dropdown.
