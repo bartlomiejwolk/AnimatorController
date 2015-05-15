@@ -130,7 +130,11 @@ namespace AnimatorControllerEx {
 
             EditorGUIUtility.labelWidth = 80;
 
-            DrawSourcePropertyField(pos, sourcePropIndex, sourcePropertyName);
+            DrawSourcePropertyField(
+                pos,
+                sourceCo,
+                sourcePropIndex,
+                sourcePropertyName);
         }
 
         private void FindComponentProperties(
@@ -153,8 +157,11 @@ namespace AnimatorControllerEx {
 
         private void DrawSourcePropertyField(
             Rect pos,
+            SerializedProperty sourceCo,
             SerializedProperty sourcePropIndex,
             SerializedProperty sourcePropertyName) {
+
+            if (sourceCo.objectReferenceValue == null) return;
 
             sourcePropIndex.intValue = EditorGUI.Popup(
                 new Rect(
