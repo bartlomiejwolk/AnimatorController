@@ -9,14 +9,28 @@ namespace AnimatorControllerEx {
     [CustomPropertyDrawer(typeof (AnimatorController.AnimatorParam))]
     public class AnimatorParamDrawer : GameComponentPropertyDrawer {
 
-        private float rows = 4;
+        #region CONSTANTS
 
+        // Hight of a single property.
+        private const int PropHeight = 16;
+
+        // Margin between properties.
+        private const int PropMargin = 4;
+
+        // Space between rows.
+        private const int RowSpace = 8;
+
+        // Number of rows.
+        private const int Rows = 4;
+
+        #endregion
+ 
         public override float GetPropertyHeight(
             SerializedProperty property,
             GUIContent label) {
             return base.GetPropertyHeight(property, label)
-                   * rows // Each row is 16 px high.
-                   + (rows - 1) * 4; // Add 4 px for each spece between rows.
+                   * Rows // Each row is 16 px high.
+                   + (Rows - 1) * 4; // Add 4 px for each spece between rows.
         }
 
         public override void OnGUI(
