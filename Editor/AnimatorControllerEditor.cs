@@ -1,33 +1,24 @@
 ﻿// Copyright (c) 2015 Bartlomiej Wolk (bartlomiejwolk@gmail.com)
 // 
-// This file is part of the AnimatorController extension for Unity.
-// Licensed under the MIT license. See LICENSE file in the project root folder.
+// This file is part of the AnimatorController extension for Unity. Licensed
+// under the MIT license. See LICENSE file in the project root folder.
 
-using UnityEngine;
-using System.Collections;
-using UnityEditor;
 using Rotorz.ReorderableList;
+using UnityEditor;
 
 namespace AnimatorControllerEx {
 
-    [CustomEditor(typeof(AnimatorController))]
-    public sealed class AnimatorControllerEditor: Editor {
-
+    [CustomEditor(typeof (AnimatorController))]
+    public sealed class AnimatorControllerEditor : Editor {
         #region SERIALIZED PROPERTIES
 
         private SerializedProperty animator;
         private SerializedProperty animatorParams;
         private SerializedProperty description;
 
-        #endregion
+        #endregion SERIALIZED PROPERTIES
 
         #region UNITY MESSAGES
-
-        private void OnEnable() {
-            animator = serializedObject.FindProperty("animator");
-            animatorParams = serializedObject.FindProperty("animatorParams");
-            description = serializedObject.FindProperty("description");
-        }
 
         public override void OnInspectorGUI() {
             serializedObject.Update();
@@ -45,9 +36,20 @@ namespace AnimatorControllerEx {
             serializedObject.ApplyModifiedProperties();
         }
 
-        #endregion
+        private void OnEnable() {
+            animator = serializedObject.FindProperty("animator");
+            animatorParams = serializedObject.FindProperty("animatorParams");
+            description = serializedObject.FindProperty("description");
+        }
+
+        #endregion UNITY MESSAGES
 
         #region INSPECTOR CONTROLS
+
+        private void DrawDescriptionTextArea() {
+            description.stringValue = EditorGUILayout.TextArea(
+                description.stringValue);
+        }
 
         private void DrawVersionLabel() {
             EditorGUILayout.LabelField(
@@ -57,22 +59,19 @@ namespace AnimatorControllerEx {
                     AnimatorController.Extension));
         }
 
-        private void DrawDescriptionTextArea() {
-            description.stringValue = EditorGUILayout.TextArea(
-                description.stringValue);
-        }
-
-        #endregion INSPECTOR
+        #endregion INSPECTOR CONTROLS
 
         #region METHODS
 
         [MenuItem("Component/AnimatorController")]
         private static void AddAnimatorControllerComponent() {
             if (Selection.activeGameObject != null) {
-                Selection.activeGameObject.AddComponent(typeof(AnimatorController));
+                Selection.activeGameObject.AddComponent(
+                    typeof (AnimatorController));
             }
         }
 
         #endregion METHODS
     }
+
 }

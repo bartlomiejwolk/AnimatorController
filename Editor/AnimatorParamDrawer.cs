@@ -1,7 +1,7 @@
 ﻿// Copyright (c) 2015 Bartlomiej Wolk (bartlomiejwolk@gmail.com)
 // 
-// This file is part of the AnimatorController extension for Unity.
-// Licensed under the MIT license. See LICENSE file in the project root folder.
+// This file is part of the AnimatorController extension for Unity. Licensed
+// under the MIT license. See LICENSE file in the project root folder.
 
 using UnityEditor;
 using UnityEngine;
@@ -10,7 +10,6 @@ namespace AnimatorControllerEx {
 
     [CustomPropertyDrawer(typeof (AnimatorParam))]
     public sealed class AnimatorParamDrawer : GameComponentPropertyDrawer {
-
         #region CONSTANTS
 
         // Hight of a single property.
@@ -19,19 +18,19 @@ namespace AnimatorControllerEx {
         // Margin between properties.
         private const int PropMargin = 4;
 
-        // Space between rows.
-        private const int RowSpace = 8;
-
         // Number of rows.
         private const int Rows = 4;
 
-        #endregion
+        // Space between rows.
+        private const int RowSpace = 8;
+
+        #endregion CONSTANTS
 
         #region FIELDS
 
         private string[] sourcePropNames;
 
-        #endregion
+        #endregion FIELDS
 
         #region UNITY MESSAGES
 
@@ -77,6 +76,7 @@ namespace AnimatorControllerEx {
                         sourcePropIndex,
                         sourcePropertyName);
                     break;
+
                 case (int) SourceTypes.Trigger:
                     DrawInspectorForTriggerSourceType(
                         pos,
@@ -88,32 +88,9 @@ namespace AnimatorControllerEx {
             }
         }
 
-        #endregion
+        #endregion UNITY MESSAGES
 
         #region DRAW METHODS
-
-        private void DrawInspectorForTriggerSourceType(
-            Rect pos,
-            SerializedProperty trigger,
-            SerializedProperty sourceType,
-            SerializedProperty messageType,
-            SerializedProperty param) {
-
-            // Message type source is always a trigger.
-            trigger.boolValue = true;
-
-            DrawMessageTypeDropdown(pos, messageType);
-
-            // Draw 'param' field.
-            EditorGUIUtility.labelWidth = 50;
-
-            DrawParamField(pos, param, 2);
-
-            // Draw 'trigger' field.
-            EditorGUIUtility.labelWidth = 50;
-
-            DrawTriggerField(pos, trigger, SourceTypes.Trigger, 2);
-        }
 
         private void DrawInspectorForPropertySourceType(
             Rect pos,
@@ -147,6 +124,80 @@ namespace AnimatorControllerEx {
                 sourcePropIndex,
                 sourcePropertyName);
         }
+
+        private void DrawInspectorForTriggerSourceType(
+            Rect pos,
+            SerializedProperty trigger,
+            SerializedProperty sourceType,
+            SerializedProperty messageType,
+            SerializedProperty param) {
+
+            // Message type source is always a trigger.
+            trigger.boolValue = true;
+
+            DrawMessageTypeDropdown(pos, messageType);
+
+            // Draw 'param' field.
+            EditorGUIUtility.labelWidth = 50;
+
+            DrawParamField(pos, param, 2);
+
+            // Draw 'trigger' field.
+            EditorGUIUtility.labelWidth = 50;
+
+            DrawTriggerField(pos, trigger, SourceTypes.Trigger, 2);
+        }
+
+        private void DrawMessageTypeDropdown(
+            Rect pos,
+            SerializedProperty messageType) {
+
+            EditorGUI.PropertyField(
+                new Rect(
+                    pos.x,
+                    pos.y + 20,
+                    pos.width,
+                    16),
+                messageType,
+                new GUIContent(
+                    "Message Type",
+                    "When to update the animator trigger field."));
+        }
+
+        private void DrawParamField(
+            Rect pos,
+            SerializedProperty param,
+            int row) {
+
+            EditorGUI.PropertyField(
+                new Rect(
+                    pos.x,
+                    pos.y + row * (PropHeight + PropMargin),
+                    pos.width * 0.5f,
+                    16),
+                param,
+                new GUIContent(
+                    "Param",
+                    "Animator parameter name to update."));
+        }
+
+        private void DrawSourceComponentField(
+            Rect pos,
+            SerializedProperty sourceCo) {
+
+            EditorGUI.PropertyField(
+                new Rect(
+                    pos.x,
+                    pos.y + 2 * (PropHeight + PropMargin),
+                    pos.width,
+                    16),
+                sourceCo,
+                new GUIContent(
+                    "Source",
+                    "Component that contains the property used to update " +
+                    "the animator field."));
+        }
+
         private void DrawSourcePropertyField(
             Rect pos,
             SerializedProperty sourceCo,
@@ -171,37 +222,22 @@ namespace AnimatorControllerEx {
                 sourcePropNames[sourcePropIndex.intValue];
         }
 
-        private void DrawMessageTypeDropdown(
+        private void DrawSourceTypeDropdown(
             Rect pos,
-            SerializedProperty messageType) {
+            SerializedProperty sourceType) {
 
             EditorGUI.PropertyField(
                 new Rect(
                     pos.x,
-                    pos.y + 20,
+                    pos.y + 0 * (PropHeight + PropMargin),
                     pos.width,
-                    16),
-                messageType,
+                    PropHeight),
+                sourceType,
                 new GUIContent(
-                    "Message Type",
-                    "When to update the animator trigger field."));
-        }
-
-        private void DrawSourceComponentField(
-            Rect pos,
-            SerializedProperty sourceCo) {
-
-            EditorGUI.PropertyField(
-                new Rect(
-                    pos.x,
-                    pos.y + 2 * (PropHeight + PropMargin),
-                    pos.width,
-                    16),
-                sourceCo,
-                new GUIContent(
-                    "Source",
-                    "Component that contains the property used to update " +
-                    "the animator field."));
+                    "Source Type",
+                    "Select `Property` to update animator parameter with " +
+                    "other component's property value. Select `Trigger` " +
+                    "to update animator trigger field."));
         }
 
         private void DrawTriggerField(
@@ -229,49 +265,15 @@ namespace AnimatorControllerEx {
             EditorGUI.EndDisabledGroup();
         }
 
-        private void DrawParamField(
-            Rect pos,
-            SerializedProperty param,
-            int row) {
-
-            EditorGUI.PropertyField(
-                new Rect(
-                    pos.x,
-                    pos.y + row * (PropHeight + PropMargin),
-                    pos.width * 0.5f,
-                    16),
-                param,
-                new GUIContent(
-                    "Param",
-                    "Animator parameter name to update."));
-        }
-
-        private void DrawSourceTypeDropdown(
-            Rect pos,
-            SerializedProperty sourceType) {
-
-            EditorGUI.PropertyField(
-                new Rect(
-                    pos.x,
-                    pos.y + 0 * (PropHeight + PropMargin),
-                    pos.width,
-                    PropHeight),
-                sourceType,
-                new GUIContent(
-                    "Source Type",
-                    "Select `Property` to update animator parameter with " +
-                    "other component's property value. Select `Trigger` " +
-                    "to update animator trigger field."));
-        }
-
-        #endregion
+        #endregion DRAW METHODS
 
         #region METHODS
-        private void FindComponentProperties(
-                    SerializedProperty sourceCo) {
 
-            // Find component properties in a selected component and display
-            // as dropdown.
+        private void FindComponentProperties(
+            SerializedProperty sourceCo) {
+
+            // Find component properties in a selected component and display as
+            // dropdown.
             if (!sourceCo.objectReferenceValue) return;
 
             // Get all properties from source component.
@@ -285,8 +287,7 @@ namespace AnimatorControllerEx {
             }
         }
 
-        #endregion
-
+        #endregion METHODS
     }
 
 }
