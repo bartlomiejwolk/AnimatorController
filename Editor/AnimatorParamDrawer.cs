@@ -231,7 +231,8 @@ namespace AnimatorControllerEx {
                 trigger,
                 new GUIContent(
                     "Trigger",
-                    "If the animator param. is a trigger."));
+                    "If the animator param. is a trigger. Every change of " +
+                    "source property will trigger the animator param."));
 
             EditorGUI.EndDisabledGroup();
         }
