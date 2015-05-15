@@ -6,7 +6,7 @@ using OneDayGame;
 namespace AnimatorControllerEx {
 
 
-    [CustomPropertyDrawer(typeof (AnimatorController.AnimatorParam))]
+    [CustomPropertyDrawer(typeof (AnimatorParam))]
     public class AnimatorParamDrawer : GameComponentPropertyDrawer {
 
         #region CONSTANTS
@@ -21,7 +21,7 @@ namespace AnimatorControllerEx {
         private const int RowSpace = 8;
 
         // Number of rows.
-        private const int Rows = 4;
+        private const int Rows = 1;
 
         #endregion
  
@@ -30,7 +30,7 @@ namespace AnimatorControllerEx {
             GUIContent label) {
             return base.GetPropertyHeight(property, label)
                    * Rows // Each row is 16 px high.
-                   + (Rows - 1) * 4; // Add 4 px for each spece between rows.
+                   + (Rows - 1) * RowSpace;
         }
 
         public override void OnGUI(
