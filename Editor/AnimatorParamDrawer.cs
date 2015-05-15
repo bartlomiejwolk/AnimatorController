@@ -22,7 +22,13 @@ namespace AnimatorControllerEx {
         private const int Rows = 4;
 
         #endregion
- 
+
+        #region FIELDS
+
+        private string[] sourcePropNames;
+
+        #endregion
+
         public override float GetPropertyHeight(
             SerializedProperty property,
             GUIContent label) {
@@ -75,7 +81,7 @@ namespace AnimatorControllerEx {
             }
         }
 
-        private static void DrawInspectorForMessageSourceType(
+        private void DrawInspectorForMessageSourceType(
             Rect pos,
             SerializedProperty trigger,
             SerializedProperty messageType,
@@ -117,7 +123,7 @@ namespace AnimatorControllerEx {
                     "source type it's read-only."));
         }
 
-        private static void DrawInspectorForComponentSourceType(
+        private void DrawInspectorForComponentSourceType(
             Rect pos,
             SerializedProperty param,
             SerializedProperty trigger,
@@ -144,9 +150,18 @@ namespace AnimatorControllerEx {
                 sourceCo,
                 sourcePropIndex,
                 sourcePropertyName);
+
+            EditorGUIUtility.labelWidth = 80;
+
+            // Display dropdown component property list.
+            DrawSourcePropertyField(pos, sourcePropIndex, sourcePropNames);
+
+            // Save selected property name.
+            sourcePropertyName.stringValue =
+                sourcePropNames[sourcePropIndex.intValue];
         }
 
-        private static void HandleFindComponentProperties(
+        private void HandleFindComponentProperties(
             Rect pos,
             SerializedProperty sourceCo,
             SerializedProperty sourcePropIndex,
@@ -160,21 +175,14 @@ namespace AnimatorControllerEx {
             var _sourceProperties =
                 sourceCo.objectReferenceValue.GetType().GetProperties();
             // Initialize array.
-            var sourcePropNames = new string[_sourceProperties.Length];
+            sourcePropNames = new string[_sourceProperties.Length];
             // Fill array with property names.
             for (var i = 0; i < _sourceProperties.Length; i++) {
                 sourcePropNames[i] = _sourceProperties[i].Name;
             }
-            EditorGUIUtility.labelWidth = 80;
-            // Display dropdown component property list.
-            DrawSourcePropertyField(pos, sourcePropIndex, sourcePropNames);
-
-            // Save selected property name.
-            sourcePropertyName.stringValue =
-                sourcePropNames[sourcePropIndex.intValue];
         }
 
-        private static void DrawSourcePropertyField(
+        private void DrawSourcePropertyField(
             Rect pos,
             SerializedProperty sourcePropIndex,
             string[] sourcePropNames) {
@@ -191,7 +199,7 @@ namespace AnimatorControllerEx {
                 sourcePropNames);
         }
 
-        private static void DrawMessageTypeDropdown(
+        private void DrawMessageTypeDropdown(
             Rect pos,
             SerializedProperty messageType) {
 
@@ -208,7 +216,7 @@ namespace AnimatorControllerEx {
                     ));
         }
 
-        private static void DrawSourceComponentField(
+        private void DrawSourceComponentField(
             Rect pos,
             SerializedProperty sourceCo) {
 
@@ -225,7 +233,7 @@ namespace AnimatorControllerEx {
                     "selected animator parameter."));
         }
 
-        private static void DrawTriggerField(Rect pos, SerializedProperty trigger) {
+        private void DrawTriggerField(Rect pos, SerializedProperty trigger) {
 
             EditorGUI.PropertyField(
                 new Rect(
@@ -239,7 +247,7 @@ namespace AnimatorControllerEx {
                     "If the animator param. is a trigger."));
         }
 
-        private static void DrawParamField(Rect pos, SerializedProperty param) {
+        private void DrawParamField(Rect pos, SerializedProperty param) {
 
             EditorGUI.PropertyField(
                 new Rect(
@@ -253,7 +261,7 @@ namespace AnimatorControllerEx {
                     "Animator parameter name to update."));
         }
 
-        private static void DrawSourceTypeDropdown(
+        private void DrawSourceTypeDropdown(
             Rect pos,
             SerializedProperty sourceType) {
 
