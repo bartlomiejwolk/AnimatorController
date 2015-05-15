@@ -28,6 +28,8 @@ namespace AnimatorControllerEx {
 
         #endregion
 
+        #region UNITY MESSAGES
+
         public override float GetPropertyHeight(
             SerializedProperty property,
             GUIContent label) {
@@ -80,6 +82,10 @@ namespace AnimatorControllerEx {
                     break;
             }
         }
+
+        #endregion
+
+        #region DRAW METHODS
 
         private void DrawInspectorForTriggerSourceType(
             Rect pos,
@@ -136,25 +142,6 @@ namespace AnimatorControllerEx {
                 sourcePropIndex,
                 sourcePropertyName);
         }
-
-        private void FindComponentProperties(
-            SerializedProperty sourceCo) {
-
-            // Find component properties in a selected component and display
-            // as dropdown.
-            if (!sourceCo.objectReferenceValue) return;
-
-            // Get all properties from source component.
-            var _sourceProperties =
-                sourceCo.objectReferenceValue.GetType().GetProperties();
-            // Initialize array.
-            sourcePropNames = new string[_sourceProperties.Length];
-            // Fill array with property names.
-            for (var i = 0; i < _sourceProperties.Length; i++) {
-                sourcePropNames[i] = _sourceProperties[i].Name;
-            }
-        }
-
         private void DrawSourcePropertyField(
             Rect pos,
             SerializedProperty sourceCo,
@@ -271,6 +258,29 @@ namespace AnimatorControllerEx {
                     "other component's property value. Select `Trigger` " +
                     "to update animator trigger field."));
         }
+
+        #endregion
+
+        #region METHODS
+        private void FindComponentProperties(
+                    SerializedProperty sourceCo) {
+
+            // Find component properties in a selected component and display
+            // as dropdown.
+            if (!sourceCo.objectReferenceValue) return;
+
+            // Get all properties from source component.
+            var _sourceProperties =
+                sourceCo.objectReferenceValue.GetType().GetProperties();
+            // Initialize array.
+            sourcePropNames = new string[_sourceProperties.Length];
+            // Fill array with property names.
+            for (var i = 0; i < _sourceProperties.Length; i++) {
+                sourcePropNames[i] = _sourceProperties[i].Name;
+            }
+        }
+
+        #endregion
 
     }
 

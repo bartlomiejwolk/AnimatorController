@@ -8,9 +8,15 @@ namespace AnimatorControllerEx {
     [CustomEditor(typeof(AnimatorController))]
     public sealed class AnimatorControllerEditor: Editor {
 
+        #region SERIALIZED PROPERTIES
+
         private SerializedProperty _animator;
         private SerializedProperty _animatorParams;
         private SerializedProperty description;
+
+        #endregion
+
+        #region UNITY MESSAGES
 
         private void OnEnable() {
             _animator = serializedObject.FindProperty("_animator");
@@ -33,6 +39,8 @@ namespace AnimatorControllerEx {
 
             serializedObject.ApplyModifiedProperties();
         }
+
+        #endregion
 
         #region INSPECTOR CONTROLS
 

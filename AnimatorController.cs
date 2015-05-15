@@ -23,19 +23,6 @@ namespace AnimatorControllerEx {
         #endregion
 
         #region FIELDS
-
-        [SerializeField]
-        private string description = "Description";
-
-        #endregion
-
-        /// Animator component.
-        [SerializeField]
-        Animator _animator;
-
-        /// List of animator component params.
-        public List<AnimatorParam> _animatorParams = new List<AnimatorParam>();
-
         /// Metadata of the selected source properties.
         private PropertyInfo[] _sourcePropInfo;
 
@@ -43,10 +30,55 @@ namespace AnimatorControllerEx {
         /// Necessery for the 'Trigger' option.
         private object[] _prevPropValues;
 
+
+        [SerializeField]
+        private string description = "Description";
+
+        #endregion
+
+        #region INSPECTOR FIELDS
+
+        /// Animator component.
+        [SerializeField]
+        Animator _animator;
+
+        /// List of animator component params.
+        // todo make fields private
+        public List<AnimatorParam> _animatorParams = new List<AnimatorParam>();
+        #endregion
+
+        #region SERIALIZED PROPERTIES
+
         public string Description {
             get { return description; }
             set { description = value; }
         }
+
+        #endregion
+
+        #region UNITY MESSAGES
+        void OnTriggerExit() {
+            for (int i = 0; i < _animatorParams.Count; i++) {
+                // Handle OnTriggerExit message type.
+                if (_animatorParams[i]._messageType ==
+                        MessageTypes.OnTriggerExit) {
+                    // Send trigger to Animator param.
+                    _animator.SetTrigger(_animatorParams[i]._paramHash);
+                }
+            }
+        }
+
+        void OnTriggerEnter() {
+            for (int i = 0; i < _animatorParams.Count; i++) {
+                // Handle OnTriggerEnter message type.
+                if (_animatorParams[i]._messageType ==
+                        MessageTypes.OnTriggerEnter) {
+                    // Send trigger to Animator param.
+                    _animator.SetTrigger(_animatorParams[i]._paramHash);
+                }
+            }
+        }
+
 
         private void Awake() {
             if (!_animator) {
@@ -108,6 +140,10 @@ namespace AnimatorControllerEx {
                 }
             }
         }
+
+        #endregion
+
+        #region METHODS
 
         /// Update animator parameters for 'Component' source type.
         ///
@@ -184,28 +220,7 @@ namespace AnimatorControllerEx {
                     break;
             }
         }
-
-        void OnTriggerEnter() {
-            for (int i = 0; i < _animatorParams.Count; i++) {
-                // Handle OnTriggerEnter message type.
-                if (_animatorParams[i]._messageType ==
-                        MessageTypes.OnTriggerEnter) {
-                    // Send trigger to Animator param.
-                    _animator.SetTrigger(_animatorParams[i]._paramHash);
-                }
-            }
-        }
-
-        void OnTriggerExit() {
-            for (int i = 0; i < _animatorParams.Count; i++) {
-                // Handle OnTriggerExit message type.
-                if (_animatorParams[i]._messageType ==
-                        MessageTypes.OnTriggerExit) {
-                    // Send trigger to Animator param.
-                    _animator.SetTrigger(_animatorParams[i]._paramHash);
-                }
-            }
-        }
+        #endregion
     }
 
 }
