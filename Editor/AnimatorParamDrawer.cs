@@ -161,7 +161,7 @@ namespace AnimatorControllerEx {
                     // rows * (row height + empty space)
                     pos.width,
                     16),
-                "Source Prop.",
+                "Property",
                 sourcePropIndex.intValue,
                 sourcePropNames);
 
@@ -183,8 +183,7 @@ namespace AnimatorControllerEx {
                 messageType,
                 new GUIContent(
                     "Message Type",
-                    "Type of the message"
-                    ));
+                    "When to update the animator trigger field."));
         }
 
         private void DrawSourceComponentField(
@@ -200,10 +199,11 @@ namespace AnimatorControllerEx {
                 sourceCo,
                 new GUIContent(
                     "Source",
-                    "Component which property is used to update " +
-                    "selected animator parameter."));
+                    "Component that contains the property used to update " +
+                    "the animator field."));
         }
 
+        // todo disable field if trigger source type selected
         private void DrawTriggerField(
             Rect pos,
             SerializedProperty trigger,
@@ -218,8 +218,7 @@ namespace AnimatorControllerEx {
                 trigger,
                 new GUIContent(
                     "Trigger",
-                    "If the animator param. is a trigger. For message " +
-                    "source type it's read-only."));
+                    "If the animator param. is a trigger."));
         }
 
         private void DrawParamField(
@@ -252,7 +251,9 @@ namespace AnimatorControllerEx {
                 sourceType,
                 new GUIContent(
                     "Source Type",
-                    "Source based on which the Animator parameter will be updated"));
+                    "Select `Property` to update animator parameter with " +
+                    "other component's property value. Select `Trigger` " +
+                    "to update animator trigger field."));
         }
 
     }
