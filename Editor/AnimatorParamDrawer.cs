@@ -55,7 +55,6 @@ namespace AnimatorControllerEx {
                 prop.FindPropertyRelative("_trigger");
 
             // Component properties.
-            PropertyInfo[] _sourceProperties;
 
             DrawSourceTypeDropdown(pos, sourceType);
 
@@ -129,8 +128,7 @@ namespace AnimatorControllerEx {
                 sourceType.enumValueIndex
                 == (int) AnimatorController.SourceTypes.Component) {
                 // Get all properties from source component.
-                _sourceProperties =
-                    sourceCo.objectReferenceValue.GetType().GetProperties();
+                var _sourceProperties = sourceCo.objectReferenceValue.GetType().GetProperties();
                 // Initialize array.
                 sourcePropNames = new string[_sourceProperties.Length];
                 // Fill array with property names.
