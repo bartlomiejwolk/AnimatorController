@@ -38,7 +38,6 @@ namespace AnimatorControllerEx {
             SerializedProperty prop,
             GUIContent label) {
 
-            /* Serialized properties */
             SerializedProperty sourceType =
                 prop.FindPropertyRelative("_sourceType");
             SerializedProperty messageType =
@@ -56,30 +55,25 @@ namespace AnimatorControllerEx {
 
             DrawSourceTypeDropdown(pos, sourceType);
 
-            // Draw fields for 'Component' source type.
-            if (sourceType.enumValueIndex
-                == (int) AnimatorController.SourceTypes.Component) {
-
-                DrawInspectorForComponentSourceType(
-                    pos,
-                    param,
-                    trigger,
-                    sourceCo,
-                    sourcePropIndex,
-                    sourcePropertyName);
+            // Handle selected source type.
+            switch (sourceType.enumValueIndex) {
+                case (int) AnimatorController.SourceTypes.Component:
+                    DrawInspectorForComponentSourceType(
+                        pos,
+                        param,
+                        trigger,
+                        sourceCo,
+                        sourcePropIndex,
+                        sourcePropertyName);
+                    break;
+                case (int) AnimatorController.SourceTypes.Message:
+                    DrawInspectorForMessageSourceType(
+                        pos,
+                        trigger,
+                        messageType,
+                        param);
+                    break;
             }
-
-            // Draw fields for 'Message' source type.
-            if (sourceType.enumValueIndex
-                == (int) AnimatorController.SourceTypes.Message) {
-
-                DrawInspectorForMessageSourceType(
-                    pos,
-                    trigger,
-                    messageType,
-                    param);
-            }
-
         }
 
         private static void DrawInspectorForMessageSourceType(
