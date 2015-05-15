@@ -75,6 +75,26 @@ namespace AnimatorControllerEx {
                 DrawSourceComponentField(pos, sourceCo);
 
                 EditorGUIUtility.labelWidth = 0;
+
+                // Find component properties in a selected component and display
+                // as dropdown.
+                if (sourceCo.objectReferenceValue) {
+                    // Get all properties from source component.
+                    var _sourceProperties = sourceCo.objectReferenceValue.GetType().GetProperties();
+                    // Initialize array.
+                    var sourcePropNames = new string[_sourceProperties.Length];
+                    // Fill array with property names.
+                    for (int i = 0; i < _sourceProperties.Length; i++) {
+                        sourcePropNames[i] = _sourceProperties[i].Name;
+                    }
+                    EditorGUIUtility.labelWidth = 80;
+                    // Display dropdown component property list.
+                    DrawSourcePropertyField(pos, sourcePropIndex, sourcePropNames);
+
+                    // Save selected property name.
+                    sourcePropertyName.stringValue =
+                        sourcePropNames[sourcePropIndex.intValue];
+                }
             }
 
             // Draw properties for 'Message' source type.
@@ -117,32 +137,6 @@ namespace AnimatorControllerEx {
                         "source type it's read-only."));
             }
 
-            // Component properties by name.
-            string[] sourcePropNames;
-            // Find component properties in a selected component and display
-            // as dropdown.
-            if (
-                // Source component is not null.
-                sourceCo.objectReferenceValue &&
-                // Source type must 'Component'.
-                sourceType.enumValueIndex
-                == (int) AnimatorController.SourceTypes.Component) {
-                // Get all properties from source component.
-                var _sourceProperties = sourceCo.objectReferenceValue.GetType().GetProperties();
-                // Initialize array.
-                sourcePropNames = new string[_sourceProperties.Length];
-                // Fill array with property names.
-                for (int i = 0; i < _sourceProperties.Length; i++) {
-                    sourcePropNames[i] = _sourceProperties[i].Name;
-                }
-                EditorGUIUtility.labelWidth = 80;
-                // Display dropdown component property list.
-                DrawSourcePropertyField(pos, sourcePropIndex, sourcePropNames);
-
-                // Save selected property name.
-                sourcePropertyName.stringValue =
-                    sourcePropNames[sourcePropIndex.intValue];
-            }
         }
 
         private static void DrawSourcePropertyField(
