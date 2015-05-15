@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace AnimatorControllerEx {
 
-
     [CustomPropertyDrawer(typeof (AnimatorParam))]
     public class AnimatorParamDrawer : GameComponentPropertyDrawer {
 
@@ -145,14 +144,14 @@ namespace AnimatorControllerEx {
 
             EditorGUIUtility.labelWidth = 0;
 
-            HandleFindComponentProperties(sourceCo);
+            FindComponentProperties(sourceCo);
 
             EditorGUIUtility.labelWidth = 80;
 
             DrawSourcePropertyField(pos, sourcePropIndex, sourcePropertyName);
         }
 
-        private void HandleFindComponentProperties(
+        private void FindComponentProperties(
             SerializedProperty sourceCo) {
 
             // Find component properties in a selected component and display
