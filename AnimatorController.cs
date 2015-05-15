@@ -15,6 +15,20 @@ namespace AnimatorControllerEx {
     /// parameter is of trigger type.
     public sealed class AnimatorController : MonoBehaviour {
 
+        #region CONSTANTS
+
+        public const string Version = "v0.1.0";
+        public const string Extension = "AnimatorController";
+
+        #endregion
+
+        #region FIELDS
+
+        [SerializeField]
+        private string description = "Description";
+
+        #endregion
+
         /// Animator component.
         [SerializeField]
         Animator _animator;
@@ -28,6 +42,11 @@ namespace AnimatorControllerEx {
         /// Previous values of the component property.
         /// Necessery for the 'Trigger' option.
         private object[] _prevPropValues;
+
+        public string Description {
+            get { return description; }
+            set { description = value; }
+        }
 
         private void Awake() {
             if (!_animator) {
