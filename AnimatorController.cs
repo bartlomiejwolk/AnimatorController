@@ -24,11 +24,11 @@ namespace AnimatorControllerEx {
 
         #region FIELDS
         /// Metadata of the selected source properties.
-        private PropertyInfo[] _sourcePropInfo;
+        private PropertyInfo[] sourcePropInfo;
 
         /// Previous values of the component property.
         /// Necessery for the 'Trigger' option.
-        private object[] _prevPropValues;
+        private object[] prevPropValues;
 
 
         [SerializeField]
@@ -40,11 +40,11 @@ namespace AnimatorControllerEx {
 
         /// Animator component.
         [SerializeField]
-        Animator _animator;
+        Animator animator;
 
         /// List of animator component params.
         // todo make fields private
-        public List<AnimatorParam> _animatorParams = new List<AnimatorParam>();
+        public List<AnimatorParam> animatorParams = new List<AnimatorParam>();
         #endregion
 
         #region SERIALIZED PROPERTIES
@@ -58,57 +58,57 @@ namespace AnimatorControllerEx {
 
         #region UNITY MESSAGES
         void OnTriggerExit() {
-            for (int i = 0; i < _animatorParams.Count; i++) {
+            for (int i = 0; i < animatorParams.Count; i++) {
                 // Handle OnTriggerExit message type.
-                if (_animatorParams[i].messageType ==
+                if (animatorParams[i].messageType ==
                         MessageTypes.OnTriggerExit) {
                     // Send trigger to Animator param.
-                    _animator.SetTrigger(_animatorParams[i].paramHash);
+                    animator.SetTrigger(animatorParams[i].paramHash);
                 }
             }
         }
 
         void OnTriggerEnter() {
-            for (int i = 0; i < _animatorParams.Count; i++) {
+            for (int i = 0; i < animatorParams.Count; i++) {
                 // Handle OnTriggerEnter message type.
-                if (_animatorParams[i].messageType ==
+                if (animatorParams[i].messageType ==
                         MessageTypes.OnTriggerEnter) {
                     // Send trigger to Animator param.
-                    _animator.SetTrigger(_animatorParams[i].paramHash);
+                    animator.SetTrigger(animatorParams[i].paramHash);
                 }
             }
         }
 
 
         private void Awake() {
-            if (!_animator) {
+            if (!animator) {
                 Utilities.MissingReference(this, "_animator");
             }
 
             // Initialize arrays.
-            _sourcePropInfo = new PropertyInfo[_animatorParams.Count];
-            _prevPropValues = new object[_animatorParams.Count];
+            sourcePropInfo = new PropertyInfo[animatorParams.Count];
+            prevPropValues = new object[animatorParams.Count];
             // Array must be initialized with values. Otherwise there'll be
             // a null reference exception.
-            for (int i = 0; i < _animatorParams.Count; i++) {
-                _prevPropValues[i] = null;
+            for (int i = 0; i < animatorParams.Count; i++) {
+                prevPropValues[i] = null;
             }
 
             // Get data for all AnimatorParam class objects.
-            for (int i = 0; i < _animatorParams.Count; i++) {
+            for (int i = 0; i < animatorParams.Count; i++) {
                 // For different source types there're different things to do.
-                switch (_animatorParams[i].sourceType) {
+                switch (animatorParams[i].sourceType) {
                     case SourceTypes.Property:
                         // Get metadata of the selected source property.
-                        _sourcePropInfo[i] = _animatorParams[i].sourceCo.GetType()
-                            .GetProperty(_animatorParams[i].sourcePropertyName);
+                        sourcePropInfo[i] = animatorParams[i].sourceCo.GetType()
+                            .GetProperty(animatorParams[i].sourcePropertyName);
                         break;
                     case SourceTypes.Trigger:
                         break;
                 }
                 // Get animator parameter hash.
-                _animatorParams[i].paramHash =
-                    Animator.StringToHash(_animatorParams[i].paramName);
+                animatorParams[i].paramHash =
+                    Animator.StringToHash(animatorParams[i].paramName);
             }
         }
 
@@ -119,24 +119,24 @@ namespace AnimatorControllerEx {
             object[] sourceValue;
 
             // Initialize arrays.
-            sourceType = new Type[_animatorParams.Count];
-            sourceValue = new object[_animatorParams.Count];
+            sourceType = new Type[animatorParams.Count];
+            sourceValue = new object[animatorParams.Count];
 
             // Update animator params for each AnimatorParams class object.
-            for (int i = 0; i < _animatorParams.Count; i++) {
+            for (int i = 0; i < animatorParams.Count; i++) {
                 // Do that only when a components is used as a source.
-                if (_animatorParams[i].sourceType == SourceTypes.Property) {
-                    sourceType[i] = _sourcePropInfo[i].PropertyType;
-                    sourceValue[i] = _sourcePropInfo[i].GetValue(
-                            _animatorParams[i].sourceCo,
+                if (animatorParams[i].sourceType == SourceTypes.Property) {
+                    sourceType[i] = sourcePropInfo[i].PropertyType;
+                    sourceValue[i] = sourcePropInfo[i].GetValue(
+                            animatorParams[i].sourceCo,
                             null);
                     UpdateAnimatorParams(
-                            _animatorParams[i].paramHash,
-                            _animatorParams[i].trigger,
+                            animatorParams[i].paramHash,
+                            animatorParams[i].trigger,
                             sourceType[i],
                             sourceValue[i],
                             // Pass by value so that it can be updated.
-                            ref _prevPropValues[i]);
+                            ref prevPropValues[i]);
                 }
             }
         }
@@ -170,12 +170,12 @@ namespace AnimatorControllerEx {
                         }
                         // Check if property value changed since last parameter update.
                         else if ((int)propValue != (int)prevPropValue) {
-                            _animator.SetTrigger(paramHash);
+                            animator.SetTrigger(paramHash);
                         }
                         prevPropValue = propValue;
                     }
                     else {
-                        _animator.SetInteger(paramHash, (int)propValue);
+                        animator.SetInteger(paramHash, (int)propValue);
                     }
                     break;
                 case "System.Single":
@@ -190,12 +190,12 @@ namespace AnimatorControllerEx {
                         }
                         // Check if property value changed since last parameter update.
                         else if ((float)propValue != (float)prevPropValue) {
-                            _animator.SetTrigger(paramHash);
+                            animator.SetTrigger(paramHash);
                         }
                         prevPropValue = propValue;
                     }
                     else {
-                        _animator.SetFloat(paramHash, (float)propValue);
+                        animator.SetFloat(paramHash, (float)propValue);
                     }
                     break;
                 case "System.Boolean":
@@ -210,12 +210,12 @@ namespace AnimatorControllerEx {
                         }
                         // Check if property value changed since last parameter update.
                         else if ((bool)propValue != (bool)prevPropValue) {
-                            _animator.SetTrigger(paramHash);
+                            animator.SetTrigger(paramHash);
                         }
                         prevPropValue = propValue;
                     }
                     else {
-                        _animator.SetBool(paramHash, (bool)propValue);
+                        animator.SetBool(paramHash, (bool)propValue);
                     }
                     break;
             }

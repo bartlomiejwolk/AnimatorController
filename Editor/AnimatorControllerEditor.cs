@@ -10,8 +10,8 @@ namespace AnimatorControllerEx {
 
         #region SERIALIZED PROPERTIES
 
-        private SerializedProperty _animator;
-        private SerializedProperty _animatorParams;
+        private SerializedProperty animator;
+        private SerializedProperty animatorParams;
         private SerializedProperty description;
 
         #endregion
@@ -19,8 +19,8 @@ namespace AnimatorControllerEx {
         #region UNITY MESSAGES
 
         private void OnEnable() {
-            _animator = serializedObject.FindProperty("_animator");
-            _animatorParams = serializedObject.FindProperty("_animatorParams");
+            animator = serializedObject.FindProperty("animator");
+            animatorParams = serializedObject.FindProperty("animatorParams");
             description = serializedObject.FindProperty("description");
         }
 
@@ -32,10 +32,10 @@ namespace AnimatorControllerEx {
 
             EditorGUILayout.Space();
 
-            EditorGUILayout.PropertyField(_animator);
+            EditorGUILayout.PropertyField(animator);
 
             ReorderableListGUI.Title("Animator Params");
-            ReorderableListGUI.ListField(_animatorParams);
+            ReorderableListGUI.ListField(animatorParams);
 
             serializedObject.ApplyModifiedProperties();
         }
