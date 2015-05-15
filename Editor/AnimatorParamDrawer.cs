@@ -1,7 +1,5 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System.Reflection;
-using OneDayGame;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace AnimatorControllerEx {
 
@@ -58,6 +56,7 @@ namespace AnimatorControllerEx {
             // Handle selected source type.
             switch (sourceType.enumValueIndex) {
                 case (int) AnimatorController.SourceTypes.Component:
+                    // todo crate fields instead of passing multiple params.
                     DrawInspectorForComponentSourceType(
                         pos,
                         param,
@@ -155,24 +154,24 @@ namespace AnimatorControllerEx {
 
             // Find component properties in a selected component and display
             // as dropdown.
-            if (sourceCo.objectReferenceValue) {
-                // Get all properties from source component.
-                var _sourceProperties =
-                    sourceCo.objectReferenceValue.GetType().GetProperties();
-                // Initialize array.
-                var sourcePropNames = new string[_sourceProperties.Length];
-                // Fill array with property names.
-                for (var i = 0; i < _sourceProperties.Length; i++) {
-                    sourcePropNames[i] = _sourceProperties[i].Name;
-                }
-                EditorGUIUtility.labelWidth = 80;
-                // Display dropdown component property list.
-                DrawSourcePropertyField(pos, sourcePropIndex, sourcePropNames);
+            if (!sourceCo.objectReferenceValue) return;
 
-                // Save selected property name.
-                sourcePropertyName.stringValue =
-                    sourcePropNames[sourcePropIndex.intValue];
+            // Get all properties from source component.
+            var _sourceProperties =
+                sourceCo.objectReferenceValue.GetType().GetProperties();
+            // Initialize array.
+            var sourcePropNames = new string[_sourceProperties.Length];
+            // Fill array with property names.
+            for (var i = 0; i < _sourceProperties.Length; i++) {
+                sourcePropNames[i] = _sourceProperties[i].Name;
             }
+            EditorGUIUtility.labelWidth = 80;
+            // Display dropdown component property list.
+            DrawSourcePropertyField(pos, sourcePropIndex, sourcePropNames);
+
+            // Save selected property name.
+            sourcePropertyName.stringValue =
+                sourcePropNames[sourcePropIndex.intValue];
         }
 
         private static void DrawSourcePropertyField(
