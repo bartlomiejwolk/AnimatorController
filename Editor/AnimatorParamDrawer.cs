@@ -94,17 +94,7 @@ namespace AnimatorControllerEx {
             // Draw 'param' field.
             EditorGUIUtility.labelWidth = 50;
 
-            // todo replace with DrawParamField. Add no param.
-            EditorGUI.PropertyField(
-                new Rect(
-                    pos.x,
-                    pos.y + 40,
-                    pos.width * 0.5f,
-                    16),
-                param,
-                new GUIContent(
-                    "Param",
-                    "Animator parameter name to update."));
+            DrawParamField(pos, param, 2);
 
             // Draw 'trigger' field.
             EditorGUIUtility.labelWidth = 50;
@@ -132,7 +122,7 @@ namespace AnimatorControllerEx {
 
             EditorGUIUtility.labelWidth = 50;
 
-            DrawParamField(pos, param);
+            DrawParamField(pos, param, 1);
 
             EditorGUIUtility.labelWidth = 50;
 
@@ -237,11 +227,15 @@ namespace AnimatorControllerEx {
                     "If the animator param. is a trigger."));
         }
 
-        private void DrawParamField(Rect pos, SerializedProperty param) {
+        private void DrawParamField(
+            Rect pos,
+            SerializedProperty param,
+            int row) {
+
             EditorGUI.PropertyField(
                 new Rect(
                     pos.x,
-                    pos.y + 1 * (PropHeight + PropMargin),
+                    pos.y + row * (PropHeight + PropMargin),
                     pos.width * 0.5f,
                     16),
                 param,
