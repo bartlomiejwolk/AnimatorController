@@ -19,7 +19,7 @@ namespace AnimatorControllerEx {
         private const int RowSpace = 8;
 
         // Number of rows.
-        private const int Rows = 3;
+        private const int Rows = 4;
 
         #endregion
  

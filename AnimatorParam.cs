@@ -5,6 +5,7 @@ namespace AnimatorControllerEx {
     /// Data needed for updating a single animator property.
     ///
     /// See 'AnimatorParamDrawer'.
+    // todo make fields private. Create properties.
     [System.Serializable]
     public class AnimatorParam {
 
@@ -36,8 +37,8 @@ namespace AnimatorControllerEx {
         ///
         /// Property array contains names of all properties
         /// found in the source game object.
-        //[SerializeField]
-        //private int _sourcePropIndex = 0;
+        [SerializeField]
+        private int _sourcePropIndex = 0;
 
         /// Name of the selected source component property.
         [SerializeField]
