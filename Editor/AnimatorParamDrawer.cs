@@ -139,21 +139,29 @@ namespace AnimatorControllerEx {
                 }
                 EditorGUIUtility.labelWidth = 80;
                 // Display dropdown component property list.
-                sourcePropIndex.intValue = EditorGUI.Popup(
-                    new Rect(
-                        pos.x,
-                        pos.y + (3 * 20),
-                        // rows * (row height + empty space)
-                        pos.width,
-                        16),
-                    "Source Prop.",
-                    sourcePropIndex.intValue,
-                    sourcePropNames);
+                DrawSourcePropertyField(pos, sourcePropIndex, sourcePropNames);
 
                 // Save selected property name.
                 sourcePropertyName.stringValue =
                     sourcePropNames[sourcePropIndex.intValue];
             }
+        }
+
+        private static void DrawSourcePropertyField(
+            Rect pos,
+            SerializedProperty sourcePropIndex,
+            string[] sourcePropNames) {
+
+            sourcePropIndex.intValue = EditorGUI.Popup(
+                new Rect(
+                    pos.x,
+                    pos.y + (3 * 20),
+                    // rows * (row height + empty space)
+                    pos.width,
+                    16),
+                "Source Prop.",
+                sourcePropIndex.intValue,
+                sourcePropNames);
         }
 
         private static void DrawMessageTypeDropdown(
