@@ -1,7 +1,7 @@
 ﻿# AnimatorController
 
 *AnimatorController* extension for Unity. Allows updating Unity *Animator* component
-fields with property values of other components.
+parameters with property values of other components.
 
 Licensed under MIT license. See LICENSE file in the project root folder.   
 Extension versions below 1.0.0 are considered to be pre/alpha and may not work properly.
