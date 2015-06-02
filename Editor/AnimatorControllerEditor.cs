@@ -3,7 +3,7 @@
 // This file is part of the AnimatorController extension for Unity. Licensed
 // under the MIT license. See LICENSE file in the project root folder.
 
-using Rotorz.ReorderableList;
+using AnimatorControllerEx.ReorderableList;
 using UnityEditor;
 
 namespace AnimatorControllerEx {

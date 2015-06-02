@@ -9,7 +9,7 @@ using UnityEngine;
 namespace AnimatorControllerEx {
 
     [CustomPropertyDrawer(typeof (AnimatorParam))]
-    public sealed class AnimatorParamDrawer : GameComponentPropertyDrawer {
+    public sealed class AnimatorParamDrawer : PropertyDrawer {
         #region CONSTANTS
 
         // Hight of a single property.
