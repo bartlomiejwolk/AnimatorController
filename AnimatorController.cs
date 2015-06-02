@@ -51,7 +51,7 @@ namespace AnimatorControllerEx {
 
         #endregion INSPECTOR FIELDS
 
-        #region SERIALIZED PROPERTIES
+        #region PROPERTIES
 
         public string Description {
             get { return description; }
@@ -85,8 +85,9 @@ namespace AnimatorControllerEx {
                         sourcePropInfo[i] = animatorParams[i].sourceCo.GetType()
                             .GetProperty(animatorParams[i].sourcePropertyName);
                         break;
-
                     case SourceTypes.Trigger:
+                        break;
+                    case SourceTypes.MethodCall:
                         break;
                 }
                 // Get animator parameter hash.
@@ -228,6 +229,23 @@ namespace AnimatorControllerEx {
                         animator.SetBool(paramHash, (bool) propValue);
                     }
                     break;
+            }
+        }
+
+        public void Trigger() {
+            // For each slot in the parameter list..
+            foreach (AnimatorParam param in animatorParams) {
+                // Handle source type option.
+                switch (param.sourceType) {
+                    case SourceTypes.Property:
+                        break;
+                    case SourceTypes.Trigger:
+                        break;
+                    case SourceTypes.MethodCall:
+                        var paramHash = param.paramHash;
+                        animator.SetTrigger(paramHash);
+                        break;
+                }
             }
         }
 

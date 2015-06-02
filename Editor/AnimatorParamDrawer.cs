@@ -85,7 +85,32 @@ namespace AnimatorControllerEx {
                         messageType,
                         param);
                     break;
+                case (int) SourceTypes.MethodCall:
+                    DrawInspectorForMethodCallSourceType(
+                        pos,
+                        trigger,
+                        param);
+                    break;
             }
+        }
+
+        private void DrawInspectorForMethodCallSourceType(
+            Rect pos,
+            SerializedProperty trigger,
+            SerializedProperty param) {
+
+            // Message type source is always a trigger.
+            trigger.boolValue = true;
+
+            // Draw 'param' field.
+            EditorGUIUtility.labelWidth = 50;
+
+            DrawParamField(pos, param, 2);
+
+            // Draw 'trigger' field.
+            EditorGUIUtility.labelWidth = 50;
+
+            DrawTriggerField(pos, trigger, SourceTypes.MethodCall, 2);
         }
 
         #endregion UNITY MESSAGES
