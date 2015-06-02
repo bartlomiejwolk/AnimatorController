@@ -9,7 +9,7 @@ using UnityEngine;
 namespace AnimatorControllerEx {
 
     [CustomPropertyDrawer(typeof (AnimatorParam))]
-    public sealed class AnimatorParamDrawer : GameComponentPropertyDrawer {
+    public sealed class AnimatorParamDrawer : PropertyDrawer {
         #region CONSTANTS
 
         // Hight of a single property.
@@ -85,7 +85,32 @@ namespace AnimatorControllerEx {
                         messageType,
                         param);
                     break;
+                case (int) SourceTypes.MethodCall:
+                    DrawInspectorForMethodCallSourceType(
+                        pos,
+                        trigger,
+                        param);
+                    break;
             }
+        }
+
+        private void DrawInspectorForMethodCallSourceType(
+            Rect pos,
+            SerializedProperty trigger,
+            SerializedProperty param) {
+
+            // Message type source is always a trigger.
+            trigger.boolValue = true;
+
+            // Draw 'param' field.
+            EditorGUIUtility.labelWidth = 50;
+
+            DrawParamField(pos, param, 1);
+
+            // Draw 'trigger' field.
+            EditorGUIUtility.labelWidth = 50;
+
+            DrawTriggerField(pos, trigger, SourceTypes.MethodCall, 1);
         }
 
         #endregion UNITY MESSAGES
