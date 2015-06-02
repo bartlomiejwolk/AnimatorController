@@ -105,12 +105,12 @@ namespace AnimatorControllerEx {
             // Draw 'param' field.
             EditorGUIUtility.labelWidth = 50;
 
-            DrawParamField(pos, param, 2);
+            DrawParamField(pos, param, 1);
 
             // Draw 'trigger' field.
             EditorGUIUtility.labelWidth = 50;
 
-            DrawTriggerField(pos, trigger, SourceTypes.MethodCall, 2);
+            DrawTriggerField(pos, trigger, SourceTypes.MethodCall, 1);
         }
 
         #endregion UNITY MESSAGES
